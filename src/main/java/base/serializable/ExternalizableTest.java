@@ -2,6 +2,9 @@ package base.serializable;
 
 import java.io.*;
 
+/**
+ * 序列化测试类
+ */
 public class ExternalizableTest {
     public static void main(String[] args) {
         Teacher teacher = new Teacher(1, "xiaocui", "三年级");

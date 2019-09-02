@@ -3,7 +3,7 @@ package base.serializable;
 import java.io.*;
 
 /**
- * 序列化测试
+ * 序列化测试类
  */
 public class SerializableTest {
     public static void main(String[] args) {
