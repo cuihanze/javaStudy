@@ -19,7 +19,7 @@ public class SerializableTest {
         }
 
         try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream("file/student"))) {
-            // 使用 ObjectInputStream 序列化
+            // 使用 ObjectInputStream 反序列化
             Student object = (Student) objectInputStream.readObject();
             System.out.println("反序列化的数据：" + object);
         } catch (IOException | ClassNotFoundException e) {
