@@ -3,7 +3,7 @@ package base.serializable;
 import java.io.*;
 
 /**
- * 序列化测试
+ * 序列化测试类
  */
 public class SerializableTest {
     public static void main(String[] args) {
@@ -19,7 +19,7 @@ public class SerializableTest {
         }
 
         try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream("file/student"))) {
-            // 使用 ObjectInputStream 序列化
+            // 使用 ObjectInputStream 反序列化
             Student object = (Student) objectInputStream.readObject();
             System.out.println("反序列化的数据：" + object);
         } catch (IOException | ClassNotFoundException e) {
