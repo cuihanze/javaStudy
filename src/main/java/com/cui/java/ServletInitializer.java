@@ -1,4 +1,4 @@
-package com.cui.java.study.java.study;
+package com.cui.java;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
