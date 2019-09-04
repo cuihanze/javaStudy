@@ -1,4 +1,4 @@
-package com.cui.java.study.java.study;
+package com.cui.java;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
