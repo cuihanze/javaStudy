@@ -1,14 +1,14 @@
-package com.cui.study.base.io.NIO;
+package com.cui.study.base.io.BIO;
+import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.*;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
+import java.nio.charset.Charset;
 import java.util.Iterator;
 
-public class NoBlockServer {
+public class NIOServer {
     public static void main(String[] args) throws IOException {
 
         // 1.获取通道
@@ -18,7 +18,7 @@ public class NoBlockServer {
         server.configureBlocking(false);
 
         // 3. 绑定连接
-        server.bind(new InetSocketAddress(6666));
+        server.bind(new InetSocketAddress(3333));
 
         // 4. 获取选择器
         Selector selector = Selector.open();
@@ -56,29 +56,30 @@ public class NoBlockServer {
                     // 9.1读取数据
                     ByteBuffer buffer = ByteBuffer.allocate(1024);
 
-                    // 9.2得到文件通道，将客户端传递过来的图片写到本地项目下(写模式、没有则创建)
-                    FileChannel outChannel = FileChannel.open(Paths.get("/Users/cuihanze/Downloads/test.jpg"), StandardOpenOption.WRITE, StandardOpenOption.CREATE);
+                    StringBuilder content = new StringBuilder();
 
                     while (client.read(buffer) > 0) {
                         // 在读之前都要切换成读模式
                         buffer.flip();
 
-                        outChannel.write(buffer);
+                        content.append(Charset.defaultCharset().newDecoder().decode(buffer).toString());
 
                         // 读完切换成写模式，能让管道继续读取文件的数据
                         buffer.clear();
                     }
 
+                    // 接收到结果，打印到控制台
+                    if (!StringUtils.isEmpty(content.toString())) {
+                        System.out.println("timestamp:" + System.currentTimeMillis() + " : " + content);
+                    }
+
                     // 注册到选择器上-->响应客户端
-                    client.register(selector, SelectionKey.OP_WRITE);
+                    // client.register(selector, SelectionKey.OP_WRITE);
                 } else if (selectionKey.isWritable()) {
                     SocketChannel client = (SocketChannel) selectionKey.channel();
 
                     // 向客户端发送消息
                     client.write(ByteBuffer.wrap("handle complete".getBytes()));
-
-                    // 关闭
-                    client.close();
                 }
                 // 10. 取消选择键(已经处理过的事件，就应该取消掉了)
                 iterator.remove();
@@ -87,3 +88,4 @@ public class NoBlockServer {
 
     }
 }
+

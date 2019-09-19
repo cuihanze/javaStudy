@@ -22,14 +22,13 @@ public class ThreadPoolServer {
                 // 阻塞获取连接
                 Socket socket = serverSocket.accept();
                 pool.execute(() -> {
-                    System.out.println("receive start : " + Thread.currentThread().getName());
                     InputStream inputStream = null;
+                    StringBuilder content = new StringBuilder();
                     try {
                         inputStream = socket.getInputStream();
 
                         int len;
                         byte[] data = new byte[1024];
-                        StringBuilder content = new StringBuilder();
                         while ((len = inputStream.read(data)) != -1) {
                             content.append(new String(data, 0, len));
                         }
@@ -38,7 +37,8 @@ public class ThreadPoolServer {
                         e.printStackTrace();
                     }
 
-                    System.out.println("receive end : " + Thread.currentThread().getName());
+                    System.out.println("timestamp:" + System.currentTimeMillis() + " : " + content);
+
                 });
             }
         } catch (IOException e) {
@@ -47,17 +47,3 @@ public class ThreadPoolServer {
 
     }
 }
-/*
-receive start : pool-1-thread-1
-receive start : pool-1-thread-3
-receive start : pool-1-thread-2
-hello world3
-receive end : pool-1-thread-2
-hello world4
-receive end : pool-1-thread-1
-receive start : pool-1-thread-2
-hello world0
-receive end : pool-1-thread-3
-receive start : pool-1-thread-1
-hello world1
- */

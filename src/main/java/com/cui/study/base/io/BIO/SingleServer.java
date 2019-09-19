@@ -16,21 +16,17 @@ public class SingleServer {
             while (true) {
                 // 阻塞获取连接
                 Socket socket = serverSocket.accept();
-
-                System.out.println("receive start : " + Thread.currentThread().getName());
-
+                // 获取输入流
                 InputStream inputStream = socket.getInputStream();
-
                 int len;
                 byte[] data = new byte[1024];
                 StringBuilder content = new StringBuilder();
+                // 读取数据
                 while ((len = inputStream.read(data)) != -1) {
                     content.append(new String(data, 0, len));
                 }
-                System.out.println(content);
-
-                System.out.println("receive end : " + Thread.currentThread().getName());
-
+                // 输出
+                System.out.println("timestamp:" + System.currentTimeMillis() + " : " + content);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -38,17 +34,3 @@ public class SingleServer {
 
     }
 }
-/*
-receive start : main
-hello world0
-receive end : main
-receive start : main
-hello world2
-receive end : main
-receive start : main
-hello world3
-receive end : main
-receive start : main
-hello world1
-receive end : main
- */
