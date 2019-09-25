@@ -11,17 +11,16 @@ import io.netty.handler.codec.string.StringDecoder;
 
 public class NettyServer {
     public static void main(String[] args) {
-        ServerBootstrap serverBootstrap = new ServerBootstrap();
+        NioEventLoopGroup boss = new NioEventLoopGroup();// 监听端口，accept 新连接的线程组
+        NioEventLoopGroup worker = new NioEventLoopGroup();// 处理每一条连接的数据读写的线程组
 
-        NioEventLoopGroup boss = new NioEventLoopGroup();// 接收新连接的线程
-        NioEventLoopGroup worker = new NioEventLoopGroup();// 负责读取数据的线程
-
+        ServerBootstrap serverBootstrap = new ServerBootstrap();// 引导类
         serverBootstrap
-                .group(boss, worker)
-                .channel(NioServerSocketChannel.class)
-                .childHandler(new ChannelInitializer<NioSocketChannel>() {
+                .group(boss, worker)// boss监听端口，接收新连接；worker负责读写
+                .channel(NioServerSocketChannel.class)// 使用NIO模型，如果使用BIO，此处使用OioServerSocketChannel.class
+                .childHandler(new ChannelInitializer<NioSocketChannel>() {// ChannelInitializer 定义后续每条连接的数据读写，业务处理逻辑；NioSocketChannel是对NIO类型连接的抽象
                     @Override
-                    protected void initChannel(NioSocketChannel nioSocketChannel) throws Exception {
+                    protected void initChannel(NioSocketChannel nioSocketChannel) throws Exception {// NioSocketChannel是对连接的抽象，类似Socket
                         nioSocketChannel.pipeline().addLast(new StringDecoder());
                         nioSocketChannel.pipeline().addLast(new SimpleChannelInboundHandler<String>() {
                             @Override
