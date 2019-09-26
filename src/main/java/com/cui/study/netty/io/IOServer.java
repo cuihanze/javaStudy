@@ -1,4 +1,4 @@
-package com.cui.study.netty.im.io;
+package com.cui.study.netty.io;
 
 import java.io.IOException;
 import java.io.InputStream;
