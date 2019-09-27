@@ -1,12 +1,12 @@
 package com.cui.study.netty.im.protocolDemo.serializer;
 
 import com.alibaba.fastjson.JSON;
-import com.cui.study.netty.im.protocolDemo.enums.SerializerEnum;
+import com.cui.study.netty.im.protocolDemo.constants.SerializerConstant;
 
 public class JsonSerializer implements Serializer {
     @Override
     public byte getSerializerAlgorithm() {
-        return SerializerEnum.JSON.getType();
+        return SerializerConstant.JSON;
     }
 
     @Override

@@ -15,5 +15,5 @@ public abstract class Packet {
     private Byte version = 1;
 
     // 指令
-    abstract Byte getCommand();
+    public abstract Byte getCommand();
 }

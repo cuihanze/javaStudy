@@ -1,7 +1,11 @@
 package com.cui.study.netty.im.protocolDemo.packet;
 
-import com.cui.study.netty.im.protocolDemo.enums.CommandEnum;
-import com.cui.study.netty.im.protocolDemo.enums.SerializerEnum;
+import com.cui.study.netty.im.protocolDemo.constants.CommandConstant;
+import com.cui.study.netty.im.protocolDemo.constants.SerializerConstant;
+import com.cui.study.netty.im.protocolDemo.packet.request.LoginRequestPacket;
+import com.cui.study.netty.im.protocolDemo.packet.request.MessageRequestPacket;
+import com.cui.study.netty.im.protocolDemo.packet.response.LoginResponsePacket;
+import com.cui.study.netty.im.protocolDemo.packet.response.MessageResponsePacket;
 import com.cui.study.netty.im.protocolDemo.serializer.JsonSerializer;
 import com.cui.study.netty.im.protocolDemo.serializer.Serializer;
 import io.netty.buffer.ByteBuf;
@@ -54,17 +58,21 @@ public class PacketCodeC {
     }
 
     private static Serializer getSerializer(byte serializerAlgorithm) {
-        if (serializerAlgorithm == SerializerEnum.JSON.getType()) {
+        if (serializerAlgorithm == SerializerConstant.JSON) {
             return new JsonSerializer();
         }
         return null;
     }
 
     private static Class<? extends Packet> getRequestType(byte command) {
-        if (command == CommandEnum.LOGIN_REQUEST.getCommand()) {
+        if (command == CommandConstant.LOGIN_REQUEST) {
             return LoginRequestPacket.class;
-        } else if (command == CommandEnum.LOGIN_RESPONSE.getCommand()) {
+        } else if (command == CommandConstant.LOGIN_RESPONSE) {
             return LoginResponsePacket.class;
+        } else if (command == CommandConstant.MESSAGE_REQUEST) {
+            return MessageRequestPacket.class;
+        } else if (command == CommandConstant.MESSAGE_RESPONSE) {
+            return MessageResponsePacket.class;
         }
 
         return null;

@@ -1,10 +1,12 @@
 package com.cui.study.netty.im.code.client;
 
-import com.cui.study.netty.im.protocolDemo.enums.CodeEnum;
-import com.cui.study.netty.im.protocolDemo.packet.LoginRequestPacket;
-import com.cui.study.netty.im.protocolDemo.packet.LoginResponsePacket;
+import com.cui.study.netty.im.protocolDemo.constants.CodeConstant;
+import com.cui.study.netty.im.protocolDemo.packet.request.LoginRequestPacket;
+import com.cui.study.netty.im.protocolDemo.packet.response.LoginResponsePacket;
 import com.cui.study.netty.im.protocolDemo.packet.Packet;
 import com.cui.study.netty.im.protocolDemo.packet.PacketCodeC;
+import com.cui.study.netty.im.protocolDemo.packet.response.MessageResponsePacket;
+import com.cui.study.netty.im.protocolDemo.utils.LoginUtil;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -35,11 +37,15 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
         Packet packet = PacketCodeC.decode((ByteBuf) msg);
         if (packet instanceof LoginResponsePacket) {
             LoginResponsePacket loginResponsePacket = (LoginResponsePacket) packet;
-            if (loginResponsePacket.getCode() == CodeEnum.SUCCESS.getCode()) {
+            if (loginResponsePacket.getCode() == CodeConstant.SUCCESS) {
+                LoginUtil.markAsLogin(ctx.channel());
                 System.out.println("登录成功");
             } else {
                 System.out.println(loginResponsePacket.getReason());
             }
+        } else if (packet instanceof MessageResponsePacket) {
+            MessageResponsePacket messageResponsePacket = (MessageResponsePacket) packet;
+            System.out.println(messageResponsePacket.getMessage());
         } else {
             System.out.println("其他处理");
         }
