@@ -1,4 +1,21 @@
 package com.cui.study.netty.im.protocolDemo.serializer;
 
-public class JsonSerializer {
+import com.alibaba.fastjson.JSON;
+import com.cui.study.netty.im.protocolDemo.enums.SerializerEnum;
+
+public class JsonSerializer implements Serializer {
+    @Override
+    public byte getSerializerAlgorithm() {
+        return SerializerEnum.JSON.getType();
+    }
+
+    @Override
+    public byte[] serialize(Object object) {
+        return JSON.toJSONBytes(object);
+    }
+
+    @Override
+    public <T> T deserializer(Class<T> clazz, byte[] bytes) {
+        return JSON.parseObject(bytes, clazz);
+    }
 }

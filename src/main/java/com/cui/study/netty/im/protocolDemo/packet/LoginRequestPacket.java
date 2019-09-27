@@ -1,4 +1,4 @@
-package com.cui.study.netty.im.protocolDemo;
+package com.cui.study.netty.im.protocolDemo.packet;
 
 import com.cui.study.netty.im.protocolDemo.enums.CommandEnum;
 import lombok.Data;
