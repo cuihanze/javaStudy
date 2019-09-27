@@ -17,9 +17,9 @@ public class NettyClient {
         bootstrap
                 .group(group)
                 .channel(NioSocketChannel.class)
-                .handler(new ChannelInitializer<SocketChannel>() {
+                .handler(new ChannelInitializer<NioSocketChannel>() {
                     @Override
-                    protected void initChannel(SocketChannel channel) throws Exception {
+                    protected void initChannel(NioSocketChannel channel) throws Exception {
                         channel.pipeline().addLast(new StringEncoder());
                     }
                 });

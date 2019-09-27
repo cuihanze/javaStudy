@@ -4,6 +4,7 @@ import lombok.Getter;
 
 public enum CommandEnum {
     LOGIN_REQUEST((byte) 1),
+    LOGIN_RESPONSE((byte) 2),
     ;
 
 

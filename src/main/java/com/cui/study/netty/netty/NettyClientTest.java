@@ -29,9 +29,9 @@ public class NettyClientTest {
                 // 2. 执行IO类型为 NIO
                 .channel(NioSocketChannel.class)
                 // 3. IO 处理逻辑
-                .handler(new ChannelInitializer<SocketChannel>() {
+                .handler(new ChannelInitializer<NioSocketChannel>() {
                     @Override
-                    protected void initChannel(SocketChannel ch) throws Exception {
+                    protected void initChannel(NioSocketChannel ch) throws Exception {
                         System.out.println("处理逻辑");
                     }
                 });

@@ -10,7 +10,7 @@ import io.netty.buffer.ByteBufAllocator;
 // 数据包的编码和解码
 public class PacketCodeC {
     // 编码
-    public ByteBuf encode(Packet packet) {
+    public static ByteBuf encode(Packet packet) {
         // 1. 创建 ByteBuf 对象
         ByteBuf byteBuf = ByteBufAllocator.DEFAULT.ioBuffer();
         // 2. 序列化 Java 对象
@@ -27,7 +27,7 @@ public class PacketCodeC {
     }
 
     // 解码
-    public Packet decode(ByteBuf byteBuf) {
+    public static Packet decode(ByteBuf byteBuf) {
         // 跳过魔数
         byteBuf.skipBytes(4);
         // 跳过版本号
@@ -53,16 +53,18 @@ public class PacketCodeC {
         return null;
     }
 
-    private Serializer getSerializer(byte serializerAlgorithm) {
+    private static Serializer getSerializer(byte serializerAlgorithm) {
         if (serializerAlgorithm == SerializerEnum.JSON.getType()) {
             return new JsonSerializer();
         }
         return null;
     }
 
-    private Class<? extends Packet> getRequestType(byte command) {
+    private static Class<? extends Packet> getRequestType(byte command) {
         if (command == CommandEnum.LOGIN_REQUEST.getCommand()) {
             return LoginRequestPacket.class;
+        } else if (command == CommandEnum.LOGIN_RESPONSE.getCommand()) {
+            return LoginResponsePacket.class;
         }
 
         return null;
