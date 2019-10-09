@@ -12,6 +12,7 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
 
@@ -32,11 +33,13 @@ public class Client {
                     @Override
                     protected void initChannel(NioSocketChannel ch) throws Exception {
                         // ch.pipeline().addLast(new ClientHandler());
-                        ch.pipeline().addLast(new LoginHandler())
-                        .addLast(new PacketDecoder())
-                        .addLast(new LoginResponseHandler())
-                        .addLast(new MessageResponseHandler())
-                        .addLast(new PacketEncoder());
+                        ch.pipeline()
+                                .addLast(new Spliter())
+                                .addLast(new LoginHandler())
+                                .addLast(new PacketDecoder())
+                                .addLast(new LoginResponseHandler())
+                                .addLast(new MessageResponseHandler())
+                                .addLast(new PacketEncoder());
                     }
                 });
         connect(bootstrap, "127.0.0.1", 8080, MAX_RETRY);
