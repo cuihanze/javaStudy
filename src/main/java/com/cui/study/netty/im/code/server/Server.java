@@ -22,6 +22,7 @@ public class Server {
                     protected void initChannel(NioSocketChannel ch) throws Exception {
                         //ch.pipeline().addLast(new ServerHandler());
                         ch.pipeline()
+                                .addLast(new LifeCycleTestHandler())
                                 .addLast(new Spliter())
                                 .addLast(new PacketDecoder())
                                 .addLast(new LoginRequestHandler())
