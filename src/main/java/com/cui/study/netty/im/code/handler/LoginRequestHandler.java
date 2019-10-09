@@ -1,15 +1,11 @@
 package com.cui.study.netty.im.code.handler;
 
 import com.cui.study.netty.im.protocolDemo.constants.CodeConstant;
-import com.cui.study.netty.im.protocolDemo.packet.PacketCodeC;
 import com.cui.study.netty.im.protocolDemo.packet.request.LoginRequestPacket;
 import com.cui.study.netty.im.protocolDemo.packet.response.LoginResponsePacket;
-import io.netty.buffer.ByteBuf;
+import com.cui.study.netty.im.protocolDemo.utils.LoginUtil;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-
-import java.util.Date;
-import java.util.UUID;
 
 public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginRequestPacket> {
     @Override
@@ -17,6 +13,7 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
         LoginResponsePacket loginResponsePacket = new LoginResponsePacket();
         if (valid(msg)) {
             // 校验成功
+            LoginUtil.markAsLogin(ctx.channel());
             loginResponsePacket.setCode(CodeConstant.SUCCESS);
         } else {
             // 校验失败
