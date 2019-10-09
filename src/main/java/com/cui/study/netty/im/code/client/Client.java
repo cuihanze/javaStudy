@@ -1,5 +1,6 @@
 package com.cui.study.netty.im.code.client;
 
+import com.cui.study.netty.im.code.handler.*;
 import com.cui.study.netty.im.protocolDemo.packet.PacketCodeC;
 import com.cui.study.netty.im.protocolDemo.packet.request.MessageRequestPacket;
 import com.cui.study.netty.im.protocolDemo.utils.LoginUtil;
@@ -30,7 +31,12 @@ public class Client {
                 .handler(new ChannelInitializer<NioSocketChannel>() {
                     @Override
                     protected void initChannel(NioSocketChannel ch) throws Exception {
-                        ch.pipeline().addLast(new ClientHandler());
+                        // ch.pipeline().addLast(new ClientHandler());
+                        ch.pipeline().addLast(new LoginHandler())
+                        .addLast(new PacketDecoder())
+                        .addLast(new LoginResponseHandler())
+                        .addLast(new MessageResponseHandler())
+                        .addLast(new PacketEncoder());
                     }
                 });
         connect(bootstrap, "127.0.0.1", 8080, MAX_RETRY);

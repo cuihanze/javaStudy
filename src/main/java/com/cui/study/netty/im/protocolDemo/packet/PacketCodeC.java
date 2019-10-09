@@ -17,9 +17,14 @@ public class PacketCodeC {
     public static ByteBuf encode(Packet packet) {
         // 1. 创建 ByteBuf 对象
         ByteBuf byteBuf = ByteBufAllocator.DEFAULT.ioBuffer();
-        // 2. 序列化 Java 对象
+        return encode(byteBuf, packet);
+    }
+
+    // 编码
+    public static ByteBuf encode(ByteBuf byteBuf, Packet packet) {
+        // 1. 序列化 Java 对象
         byte[] bytes = Serializer.DEFAULT.serialize(packet);
-        // 3. 实际编码过程
+        // 2. 实际编码过程
         byteBuf.writeInt(Packet.getMagicNumber());// 魔数
         byteBuf.writeByte(packet.getVersion());// 版本
         byteBuf.writeByte(Serializer.DEFAULT.getSerializerAlgorithm());// 序列化算法

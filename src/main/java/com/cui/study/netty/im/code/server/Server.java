@@ -1,5 +1,9 @@
 package com.cui.study.netty.im.code.server;
 
+import com.cui.study.netty.im.code.handler.LoginRequestHandler;
+import com.cui.study.netty.im.code.handler.MessageRequestHandler;
+import com.cui.study.netty.im.code.handler.PacketDecoder;
+import com.cui.study.netty.im.code.handler.PacketEncoder;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -18,7 +22,11 @@ public class Server {
                 .childHandler(new ChannelInitializer<NioSocketChannel>() {
                     @Override
                     protected void initChannel(NioSocketChannel ch) throws Exception {
-                        ch.pipeline().addLast(new ServerHandler());
+                        //ch.pipeline().addLast(new ServerHandler());
+                        ch.pipeline().addLast(new PacketDecoder())
+                        .addLast(new LoginRequestHandler())
+                        .addLast(new MessageRequestHandler())
+                        .addLast(new PacketEncoder());
                     }
                 });
         bind(bootstrap, 8080);

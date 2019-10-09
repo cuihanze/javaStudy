@@ -1,0 +1,12 @@
+package com.cui.study.netty.im.code.handler;
+
+import com.cui.study.netty.im.protocolDemo.packet.response.MessageResponsePacket;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.SimpleChannelInboundHandler;
+
+public class MessageResponseHandler extends SimpleChannelInboundHandler<MessageResponsePacket> {
+    @Override
+    protected void channelRead0(ChannelHandlerContext ctx, MessageResponsePacket msg) throws Exception {
+        System.out.println(msg.getMessage());
+    }
+}
