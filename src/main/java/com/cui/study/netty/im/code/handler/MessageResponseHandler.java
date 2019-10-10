@@ -7,6 +7,9 @@ import io.netty.channel.SimpleChannelInboundHandler;
 public class MessageResponseHandler extends SimpleChannelInboundHandler<MessageResponsePacket> {
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, MessageResponsePacket msg) throws Exception {
-        System.out.println(msg.getMessage());
+        String fromUserId = msg.getFromUserId();
+        String fromUserName = msg.getFromUserName();
+
+        System.out.println(fromUserId + ":" + fromUserName + " -> " + msg .getMessage());
     }
 }

@@ -8,6 +8,8 @@ import lombok.Data;
 public class LoginResponsePacket extends Packet {
     private int code;
     private String reason;
+    private String userId;
+    private String userName;
 
     @Override
     public Byte getCommand() {

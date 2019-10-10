@@ -10,10 +10,11 @@ import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
+
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
-public class Client {
+public class Client1 {
     private static final int MAX_RETRY = 10;
 
     public static void main(String[] args) {

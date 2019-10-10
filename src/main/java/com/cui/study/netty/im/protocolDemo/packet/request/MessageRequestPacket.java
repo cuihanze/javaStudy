@@ -7,6 +7,15 @@ import lombok.Data;
 @Data
 public class MessageRequestPacket extends Packet {
     private String message;
+    private String toUserId;
+
+    public MessageRequestPacket() {
+    }
+
+    public MessageRequestPacket(String message, String toUserId) {
+        this.message = message;
+        this.toUserId = toUserId;
+    }
 
     @Override
     public Byte getCommand() {
