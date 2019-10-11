@@ -10,7 +10,7 @@ import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
-// 1. 加上注解标识，表明该 handler 是可以多个 channel 共享的，否则会报错
+// 1. 加上注解标识，表明该 handler 是可以多个 channel 共享的，否则会第二个使用该 handler 的 channel 会报错
 @ChannelHandler.Sharable
 public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginRequestPacket> {
 

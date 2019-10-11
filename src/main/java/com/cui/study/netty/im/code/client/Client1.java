@@ -30,14 +30,15 @@ public class Client1 {
                         // ch.pipeline().addLast(new ClientHandler());
                         ch.pipeline()
                                 .addLast(new Spliter())
+                                .addLast(PacketCodecHandler.INSTANCE)
                                 // .addLast(new LoginHandler())
-                                .addLast(new PacketDecoder())
+                                //.addLast(new PacketDecoder())
                                 .addLast(new LogoutResponseHandler())
                                 .addLast(new LoginResponseHandler())
                                 .addLast(new MessageResponseHandler())
                                 .addLast(new SendGroupResponseHandler())
-                                .addLast(new CreateGroupResponseHandler())
-                                .addLast(new PacketEncoder());
+                                .addLast(new CreateGroupResponseHandler());
+                                //.addLast(new PacketEncoder());
                     }
                 });
         connect(bootstrap, "127.0.0.1", 8080, MAX_RETRY);

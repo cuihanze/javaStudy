@@ -24,14 +24,16 @@ public class Server {
                         ch.pipeline()
                                 // .addLast(new LifeCycleTestHandler())
                                 .addLast(new Spliter())
-                                .addLast(new PacketDecoder())
-                                .addLast(new LogoutRequestHandler())
-                                .addLast(LoginRequestHandler.loginRequestHandler)
-                                .addLast(new AuthHandler())
-                                .addLast(new MessageRequestHandler())
-                                .addLast(new SendGroupRequestHandler())
-                                .addLast(new CreateGroupRequestHandler())
-                                .addLast(new PacketEncoder());
+                                .addLast(PacketCodecHandler.INSTANCE)
+                                //.addLast(new PacketDecoder())
+                                .addLast(IMHandler.INSTANCE)
+                                //.addLast(LoginRequestHandler.loginRequestHandler)
+                                //.addLast(new LogoutRequestHandler())
+                                .addLast(new AuthHandler());
+                                //.addLast(new MessageRequestHandler())
+                                //.addLast(new SendGroupRequestHandler())
+                                //.addLast(new CreateGroupRequestHandler())
+                                //.addLast(new PacketEncoder());
                     }
                 });
         bind(bootstrap, 8080);
