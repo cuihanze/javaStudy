@@ -88,6 +88,10 @@ public class PacketCodeC {
             return SendGroupRequestPacket.class;
         } else if (command == CommandConstant.GROUP_SEND_RESPONSE) {
             return SendGroupResponsePacket.class;
+        } else if (command == CommandConstant.HEARTBEAT_REQUEST) {
+            return HeartBeatRequestPacket.class;
+        } else if (command == CommandConstant.HEARTBEAT_RESPONSE) {
+            return HeartBeatResponsePacket.class;
         }
 
         return null;

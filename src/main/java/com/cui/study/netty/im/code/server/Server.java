@@ -23,9 +23,11 @@ public class Server {
                         //ch.pipeline().addLast(new ServerHandler());
                         ch.pipeline()
                                 // .addLast(new LifeCycleTestHandler())
+                                .addLast(new IMIdleStateHandler())// 空闲检测
                                 .addLast(new Spliter())
                                 .addLast(PacketCodecHandler.INSTANCE)
                                 //.addLast(new PacketDecoder())
+                                .addLast(HeartBeatRequestHandler.INSTANCE)// 检测客户端的心跳
                                 .addLast(IMHandler.INSTANCE)
                                 //.addLast(LoginRequestHandler.loginRequestHandler)
                                 //.addLast(new LogoutRequestHandler())

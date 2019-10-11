@@ -34,6 +34,8 @@ public class Client {
                                 .addLast(PacketCodecHandler.INSTANCE)
                                 // .addLast(new LoginHandler())
                                 //.addLast(new PacketDecoder())
+                                .addLast(new HeartBeatTimerHandler())
+                                .addLast(new HeartBeatResponseHandler())
                                 .addLast(new LogoutResponseHandler())
                                 .addLast(new LoginResponseHandler())
                                 .addLast(new MessageResponseHandler())

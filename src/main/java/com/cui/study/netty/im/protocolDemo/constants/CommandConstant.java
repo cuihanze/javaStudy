@@ -15,4 +15,7 @@ public class CommandConstant {
 
     public static byte GROUP_SEND_REQUEST = (byte) 9;
     public static byte GROUP_SEND_RESPONSE = (byte) 10;
+
+    public static byte HEARTBEAT_REQUEST = (byte) 11;
+    public static byte HEARTBEAT_RESPONSE = (byte) 12;
 }
