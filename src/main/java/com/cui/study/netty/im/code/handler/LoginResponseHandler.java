@@ -15,7 +15,7 @@ public class LoginResponseHandler extends SimpleChannelInboundHandler<LoginRespo
             SessionUtil.bindSession(new Session(msg.getUserId(), msg.getUserName()), ctx.channel());
 
             // LoginUtil.markAsLogin(ctx.channel());
-            System.out.println("登录成功");
+            System.out.println("登录成功:" + msg.getUserId());
         } else {
             System.out.println(msg.getReason());
         }

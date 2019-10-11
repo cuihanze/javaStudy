@@ -14,7 +14,7 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
-public class Client1 {
+public class Client2 {
     private static final int MAX_RETRY = 10;
 
     public static void main(String[] args) {

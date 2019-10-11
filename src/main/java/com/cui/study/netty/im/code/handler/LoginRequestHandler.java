@@ -6,10 +6,17 @@ import com.cui.study.netty.im.protocolDemo.packet.request.LoginRequestPacket;
 import com.cui.study.netty.im.protocolDemo.packet.response.LoginResponsePacket;
 import com.cui.study.netty.im.protocolDemo.utils.LoginUtil;
 import com.cui.study.netty.im.protocolDemo.utils.SessionUtil;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
+// 1. 加上注解标识，表明该 handler 是可以多个 channel 共享的，否则会报错
+@ChannelHandler.Sharable
 public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginRequestPacket> {
+
+    // 2. 构造单例
+    public static final LoginRequestHandler loginRequestHandler = new LoginRequestHandler();
+
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, LoginRequestPacket msg) throws Exception {
         LoginResponsePacket loginResponsePacket = new LoginResponsePacket();

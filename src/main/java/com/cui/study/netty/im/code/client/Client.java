@@ -1,5 +1,7 @@
 package com.cui.study.netty.im.code.client;
 
+import com.cui.study.netty.im.code.group.ConsoleCommandManager;
+import com.cui.study.netty.im.code.group.LoginConsoleCommand;
 import com.cui.study.netty.im.code.handler.*;
 import com.cui.study.netty.im.protocolDemo.packet.request.LoginRequestPacket;
 import com.cui.study.netty.im.protocolDemo.packet.request.MessageRequestPacket;
@@ -31,8 +33,11 @@ public class Client {
                                 .addLast(new Spliter())
                                 // .addLast(new LoginHandler())
                                 .addLast(new PacketDecoder())
+                                .addLast(new LogoutResponseHandler())
                                 .addLast(new LoginResponseHandler())
                                 .addLast(new MessageResponseHandler())
+                                .addLast(new SendGroupResponseHandler())
+                                .addLast(new CreateGroupResponseHandler())
                                 .addLast(new PacketEncoder());
                     }
                 });
@@ -63,9 +68,18 @@ public class Client {
 
     private static void startConsoleThread(Channel channel) {
         new Thread(() -> {
+            Scanner scanner = new Scanner(System.in);
             while (!Thread.interrupted()) {
-                Scanner sc = new Scanner(System.in);
                 if (!SessionUtil.hasLogin(channel)) {
+                    LoginConsoleCommand loginConsoleCommand = new LoginConsoleCommand();
+                    loginConsoleCommand.exec(scanner, channel);
+                } else {
+                    ConsoleCommandManager consoleCommandManager = new ConsoleCommandManager();
+                    consoleCommandManager.exec(scanner, channel);
+                }
+                waitForResponse();
+
+                /*if (!SessionUtil.hasLogin(channel)) {
                     LoginRequestPacket loginRequestPacket = new LoginRequestPacket();
                     System.out.print("输入用户名登录: ");
                     String username = sc.nextLine();
@@ -86,7 +100,7 @@ public class Client {
                     String message = sc.next();
                     channel.writeAndFlush(new MessageRequestPacket(message, toUserName));
                 }
-
+*/
                 /*if (LoginUtil.hasLogin(channel)) {
                     System.out.println("输入消息发送至服务端：");
                     Scanner sc = new Scanner(System.in);
@@ -106,7 +120,7 @@ public class Client {
         }).start();
     }
 
-    private static void waitForLoginResponse() {
+    private static void waitForResponse() {
         try {
             Thread.sleep(1000);
         } catch (InterruptedException ignored) {

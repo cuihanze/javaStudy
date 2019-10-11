@@ -2,10 +2,8 @@ package com.cui.study.netty.im.protocolDemo.packet;
 
 import com.cui.study.netty.im.protocolDemo.constants.CommandConstant;
 import com.cui.study.netty.im.protocolDemo.constants.SerializerConstant;
-import com.cui.study.netty.im.protocolDemo.packet.request.LoginRequestPacket;
-import com.cui.study.netty.im.protocolDemo.packet.request.MessageRequestPacket;
-import com.cui.study.netty.im.protocolDemo.packet.response.LoginResponsePacket;
-import com.cui.study.netty.im.protocolDemo.packet.response.MessageResponsePacket;
+import com.cui.study.netty.im.protocolDemo.packet.request.*;
+import com.cui.study.netty.im.protocolDemo.packet.response.*;
 import com.cui.study.netty.im.protocolDemo.serializer.JsonSerializer;
 import com.cui.study.netty.im.protocolDemo.serializer.Serializer;
 import io.netty.buffer.ByteBuf;
@@ -78,6 +76,18 @@ public class PacketCodeC {
             return MessageRequestPacket.class;
         } else if (command == CommandConstant.MESSAGE_RESPONSE) {
             return MessageResponsePacket.class;
+        } else if (command == CommandConstant.LOGOUT_REQUEST) {
+            return LogoutRequestPacket.class;
+        } else if (command == CommandConstant.LOGOUT_RESPONSE) {
+            return LogoutResponsePacket.class;
+        } else if (command == CommandConstant.GROUP_CREATE_REQUEST) {
+            return CreateGroupRequestPacket.class;
+        } else if (command == CommandConstant.GROUP_CREATE_RESPONSE) {
+            return CreateGroupResponsePacket.class;
+        } else if (command == CommandConstant.GROUP_SEND_REQUEST) {
+            return SendGroupRequestPacket.class;
+        } else if (command == CommandConstant.GROUP_SEND_RESPONSE) {
+            return SendGroupResponsePacket.class;
         }
 
         return null;

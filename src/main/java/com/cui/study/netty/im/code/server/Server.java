@@ -25,9 +25,12 @@ public class Server {
                                 // .addLast(new LifeCycleTestHandler())
                                 .addLast(new Spliter())
                                 .addLast(new PacketDecoder())
-                                .addLast(new LoginRequestHandler())
+                                .addLast(new LogoutRequestHandler())
+                                .addLast(LoginRequestHandler.loginRequestHandler)
                                 .addLast(new AuthHandler())
                                 .addLast(new MessageRequestHandler())
+                                .addLast(new SendGroupRequestHandler())
+                                .addLast(new CreateGroupRequestHandler())
                                 .addLast(new PacketEncoder());
                     }
                 });
