@@ -1,4 +1,4 @@
-package com.cui.study.netty.shizhan.ch02;
+package com.cui.study.netty.nettyshizhan.ch02;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
