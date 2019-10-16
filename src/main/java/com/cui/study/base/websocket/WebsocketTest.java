@@ -8,6 +8,9 @@ import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 
+/**
+ * https://www.jianshu.com/p/d79bf8174196
+ */
 @ServerEndpoint(value="/websocketTest/{userId}")
 public class WebsocketTest {
     private static String userId;
