@@ -1,4 +1,4 @@
-package com.cui.java.study.web.errorhandle;
+package com.cui.java.study.web.spring.errorhandle.validation;
 
 import lombok.Data;
 
@@ -11,6 +11,9 @@ public class Response<T> {
     private int code;
     private String msg;
     private T data;
+
+    public Response() {
+    }
 
     public Response(int code, String msg, T data) {
         this.code = code;
